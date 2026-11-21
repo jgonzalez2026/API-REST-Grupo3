@@ -1,4 +1,4 @@
-// RESPONSABLE: Integrante 2
+// RESPONSABLE: Integrante 2 - Jesús Peña
 namespace DeportHub.Models;
 
 /// <summary>Roles permitidos. Solo "Entrenador" o "Miembro".</summary>

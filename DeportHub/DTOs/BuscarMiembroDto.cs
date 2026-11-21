@@ -1,4 +1,4 @@
-// RESPONSABLE: Integrante 2
+// RESPONSABLE: Integrante 2 - Jesús Peña
 // Ambos campos son opcionales: se filtra por country y/o username.
 namespace DeportHub.DTOs;
 
