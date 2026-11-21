@@ -1,0 +1,16 @@
+# Credenciales (NUNCA subir)
+firebase-credentials.json
+*firebase-adminsdk*.json
+appsettings.Development.json
+appsettings.Local.json
+.env
+
+# Build
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.vscode/
+.idea/
+*.log
