@@ -1,6 +1,4 @@
-// RESPONSABLE: Integrante 4
-// Sin [Authorize]. Sin logica de negocio: solo llama al service.
-// TODO: capturar AuthException y devolver StatusCode(ex.StatusCode, new { message = ex.Message })
+//Julio Gonzalez - 62511637
 using DeportHub.DTOs;
 using DeportHub.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -21,14 +19,26 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<ActionResult<AuthResponseDto>> Register([FromBody] RegisterDto dto)
     {
-        var result = await _authService.RegisterAsync(dto);
-        return Ok(result);
+        try
+        {
+            return Ok(await _authService.RegisterAsync(dto));
+        }
+        catch (AuthException ex)
+        {
+            return StatusCode(ex.StatusCode, new { message = ex.Message });
+        }
     }
 
     [HttpPost("login")]
     public async Task<ActionResult<AuthResponseDto>> Login([FromBody] LoginDto dto)
     {
-        var result = await _authService.LoginAsync(dto);
-        return Ok(result);
+        try
+        {
+            return Ok(await _authService.LoginAsync(dto));
+        }
+        catch (AuthException ex)
+        {
+            return StatusCode(ex.StatusCode, new { message = ex.Message });
+        }
     }
 }
