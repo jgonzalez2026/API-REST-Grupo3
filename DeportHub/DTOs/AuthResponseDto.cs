@@ -1,4 +1,4 @@
-// RESPONSABLE: Integrante 2
+// RESPONSABLE: Integrante 2 - Jesús Peña
 // Respuesta de register y login: idToken, localId y email.
 namespace DeportHub.DTOs;
 
