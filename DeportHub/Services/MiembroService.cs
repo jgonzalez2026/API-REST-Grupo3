@@ -1,7 +1,3 @@
-// RESPONSABLE: Integrante 5
-// TODO: ObtenerPorIdAsync -> leer documento "miembros/{id}" (null si no existe)
-//       BuscarAsync -> Query sobre "miembros" con WhereEqualTo("Country", ...) y/o ("Username", ...)
-//       El UserId del token NO se usa para filtrar.
 using DeportHub.DTOs;
 using DeportHub.Models;
 using Google.Cloud.Firestore;
@@ -18,14 +14,47 @@ public class MiembroService : IMiembroService
     {
         _db = db;
     }
-
-    public Task<Miembro?> ObtenerPorIdAsync(string id)
+ public async Task<Miembro?> ObtenerPorIdAsync(string id)
     {
-        throw new NotImplementedException("Pendiente: Integrante 5");
+        var documento = await _db
+            .Collection(ColeccionMiembros)
+            .Document(id)
+            .GetSnapshotAsync();
+
+   if (!documento.Exists)
+        {
+            return null;
+        }
+return documento.ConvertTo<Miembro>();
     }
 
-    public Task<List<Miembro>> BuscarAsync(BuscarMiembroDto dto)
+    public async Task<List<Miembro>> BuscarAsync(
+        BuscarMiembroDto dto)
     {
-        throw new NotImplementedException("Pendiente: Integrante 5");
+        Query consulta = _db.Collection(ColeccionMiembros);
+
+        // Filtrar por país si viene informado
+        if (!string.IsNullOrWhiteSpace(dto.Country))
+        {
+            consulta = consulta.WhereEqualTo(
+                "Country",
+                dto.Country
+            );
+        }
+
+     if (!string.IsNullOrWhiteSpace(dto.Username))
+        {
+            consulta = consulta.WhereEqualTo(
+                "Username",
+                dto.Username
+            );
+        }
+
+  var resultado = await consulta.GetSnapshotAsync();
+List<Miembro> miembros = resultado.Documents
+            .Select(documento => documento.ConvertTo<Miembro>())
+            .ToList();
+
+        return miembros;
     }
 }
